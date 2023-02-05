@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hive list</title>
+    <script src="javascripts/SelectWithCustomInput.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<%- include('partial/header')%>
+
+<div class="container-fluid">
+    <form method="post" action="/edit/update">
+        <input type="hidden" name="id" value="<%=hive.id%>">
+        <div class="form-floating mb-2">
+            <input id="hiveId" class="form-control" value="<%=hive.id%>" disabled>
+            <label for="hiveId">Number:</label>
+        </div>
+
+        <div class="form-floating mb-2">
+            <select id="hiveType" name="type" class="form-select">
+                <option value="<%=hive.type%>" selected hidden><%=hive.type%></option>
+                <option value="Vertical">Vertical</option>
+                <option value="Horizontal">Horizontal</option>
+                <option value="Queen bee rearing">Queen bee rearing</option>
+                <option value="Nucleus">Nucleus</option>
+            </select>
+            <label for="hiveType">Type:</label>
+        </div>
+
+        <div class="form-floating mb-2">
+            <div id="textSelectDiv"  class="form-floating" style="display: inline">
+                <select id="textSelect" name="queen" class="form-select" onchange="openInput()">
+                    <option value="<%=hive.queen%>" selected hidden><%=hive.queen%></option>
+                    <option value="Carniolan">Carniolan</option>
+                    <option value="Buckfast">Buckfast</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Caucasian">Caucasian</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="textSelect">Queen:</label>
+            </div>
+
+            <div id="otherInput" class="form-floating" style="display:none;">
+                <input name="queen" type="text" id="textOther" class="form-control" onblur="hideInput()" disabled/>
+                <label for="textOther">Other queen:</label>
+            </div>
+        </div>
+
+        <div class="form-floating mb-2">
+            <input id="date" type="date" class="form-control" name="date" value="<%=hive.date%>">
+            <label for="date">Date:</label>
+        </div>
+
+        <div class="panel-body mb-4 input-group">
+            <button class="btn btn-success col-1" type="submit">Save</button>
+            <button class="btn btn-danger col-1" type="submit" formaction="/edit/delete">Delete</button>
+        </div>
+
+    </form>
+
+    <form method="post" action="/uploadFile" enctype="multipart/form-data">
+        <label class="text-secondary h4">Прикрепить фото: </label>
+        <div class="input-group mb-3">
+            <input type="file" name="picture" class="form-control" id="inputGroupFile03"
+                   aria-describedby="inputGroupFileAddon03" aria-label="Upload"
+                   accept=".png, .jpg, .jpeg" required>
+            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Upload</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
