@@ -5,7 +5,11 @@ const repository = require('../repository/hiveRepository')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('hiveList', {hives: repository.getHives()});
+    if(req.query.filter)
+        res.render('hiveList', {hives: repository.filterHives(req.query.filter),
+            flt: req.query.filter});
+    else
+        res.render('hiveList', {hives: repository.getHives(), flt: undefined});
 });
 
 router.post('/new', controller.CreateHive);

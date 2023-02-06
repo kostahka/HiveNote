@@ -8,17 +8,19 @@
     <%- include('partial/header')%>
 
     <div class="container-fluid text-center">
-        <form method="post">
+        <form>
             <div class="input-group mb-4">
-                <select class="form-select" name="status">
-                    <option value="Все">Все</option>
-                    <option value="Завершено!">Завершенные</option>
-                    <option value="В процессе!">В процессе</option>
-                    <option value="Время вышло!">Время вышло</option>
-                    <option value="Бессрочно!">Бессрочно</option>
+                <select class="form-select" name="filter">
+                    <%if(flt){%>
+                    <option value="<%=flt%>" selected hidden>By <%=flt%></option>
+                    <%}%>
+                    <option value="id">By id</option>
+                    <option value="type">By type</option>
+                    <option value="queen">By queen</option>
+                    <option value="date">By date</option>
                 </select>
-                <button class="btn btn-secondary" type="submit" formaction="/filter">Фильтровать</button>
-                <button class="btn btn-success" type="submit" formaction="/new">Добавить</button>
+                <button class="btn btn-secondary" type="submit" formmethod="get" formaction="/">Filter</button>
+                <button class="btn btn-success" type="submit" formmethod="post" formaction="/new">Add</button>
             </div>
         </form>
 

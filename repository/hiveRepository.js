@@ -1,5 +1,6 @@
 const hiveDao = require('../dao/hiveDao')
 const Hive = require('../entities/hive')
+const pictureDao = require('../dao/picturesDao')
 
 let hives = hiveDao.getHives()
 
@@ -55,4 +56,40 @@ const getHives=()=>{
     return hives
 }
 
-module.exports = {addHive, deleteHive, updateHive, getHives, getHive}
+const savePicture=(file, id)=>{
+    pictureDao.saveFile(file, id)
+    for(let i = 0; i < hives.length; i++){
+        if(id == hives[i].id){
+            hives[i].hasPicture = 'true'
+            hiveDao.rewriteHives(hives)
+            break;
+        }
+    }
+}
+
+const deletePicture=(id)=>{
+    pictureDao.deleteFile(id)
+    for(let i = 0; i < hives.length; i++){
+        if(id == hives[i].id){
+            hives[i].hasPicture = 'false'
+            hiveDao.rewriteHives(hives)
+            break;
+        }
+    }
+}
+
+const filterHives=(filter)=>{
+    hives.sort((a,b)=>{
+        let A = a[filter]
+        let B = b[filter]
+        if(A > B)
+            return 1
+        if(A < B)
+            return -1
+        else
+            return 0
+    })
+    return hives
+}
+
+module.exports = {addHive, deleteHive, updateHive, getHives, getHive, savePicture, deletePicture, filterHives}

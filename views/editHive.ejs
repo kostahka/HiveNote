@@ -9,8 +9,9 @@
 <%- include('partial/header')%>
 
 <div class="container-fluid">
-    <form method="post" action="/edit/update">
+    <form class="border-bottom border-dark mb-4" method="post" action="/edit/update">
         <input type="hidden" name="id" value="<%=hive.id%>">
+        <input type="hidden" name="hasPicture" value="<%=hive.hasPicture%>">
         <div class="form-floating mb-2">
             <input id="hiveId" class="form-control" value="<%=hive.id%>" disabled>
             <label for="hiveId">Number:</label>
@@ -58,15 +59,26 @@
 
     </form>
 
-    <form method="post" action="/uploadFile" enctype="multipart/form-data">
-        <label class="text-secondary h4">Прикрепить фото: </label>
+    <form method="post" action="/edit/uploadFile" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<%=hive.id%>">
+        <label class="text-secondary h4">Add picture: </label>
         <div class="input-group mb-3">
-            <input type="file" name="picture" class="form-control" id="inputGroupFile03"
+            <input type="file" name="myFile" class="form-control" id="inputGroupFile03"
                    aria-describedby="inputGroupFileAddon03" aria-label="Upload"
                    accept=".png, .jpg, .jpeg" required>
             <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Upload</button>
         </div>
     </form>
+    <%if(hive.hasPicture === "true"){%>
+        <form method="post" action="/edit/deleteFile">
+            <input type="hidden" name="id" value="<%=hive.id%>">
+            <div class="input-group d-flex justify-content-center">
+                <img class="border border-3 border-warning" style="width: 300px; height: 256px" src="<%="images/hives/" + hive.id%>">
+                <button type="submit" class="btn btn-outline-danger">Delete image</button>
+            </div>
+        </form>
+
+    <%}%>
 </div>
 
 </body>
