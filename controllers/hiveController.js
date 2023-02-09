@@ -21,7 +21,7 @@ const CreateHive=(req, res)=>{
 const UpdateHive=(req, res)=>{
     if(!req.body) return res.sendStatus(400);
 
-    let hive = new Hive(req.body.id, req.body.type, req.body.queen, req.body.date, req.body.hasPicture)
+    let hive = new Hive(parseInt(req.body.id, 10), req.body.type, req.body.queen, req.body.date, req.body.hasPicture)
     hiveRepository.updateHive(hive)
     return res.redirect("/")
 }

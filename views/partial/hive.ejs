@@ -1,7 +1,8 @@
 <div class="col">
     <a href="/edit?id=<%=hive.id%>">
-        <div class="btn btn-outline-dark m-1 w-100">
-            <img style="width: 75px; height: 64px" class="m-3"
+        <div class="btn btn-outline-warning btn-dark m-1 w-100">
+            <p>Hive <%=hive.id%></p>
+            <img style="width: 75px; height: 64px" class="mb-5"
                  src=<% if(hive.hasPicture === 'true') {%>
                 <%="images/hives/" + hive.id%>
             <%} else {%>
